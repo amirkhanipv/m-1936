@@ -1,171 +1,164 @@
-import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Star } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useLanguage } from "@/contexts/LanguageContext";
 
-interface Testimonial {
+import { useState } from "react";
+import { Star } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+type Testimonial = {
   id: number;
   name: string;
-  location: string;
-  avatar: string;
+  role: string;
   content: string;
+  avatar: string;
   rating: number;
-}
+};
 
+// نظرات مشتریان
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: "Sophia Martinez",
-    location: "New York, USA",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=faces",
-    content: "My family and I had the most wonderful stay at MareSereno. The apartment was immaculate, with breathtaking sea views. The staff went above and beyond to make our vacation special.",
+    name: "سارا محمدی",
+    role: "مشتری",
+    content: "من برای عکاسی عروسی از خدمات آتلیه درسا استفاده کردم و واقعاً از نتیجه کار راضی بودم. عکس‌ها فوق‌العاده زیبا شدند و تیم حرفه‌ای و خوش‌برخورد بودند. قطعاً به دوستانم پیشنهاد می‌کنم.",
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop",
     rating: 5
   },
   {
     id: 2,
-    name: "Marco Rossi",
-    location: "Rome, Italy",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=faces",
-    content: "Absolutely perfect location, steps away from the beach. The apartment had everything we needed and more. The modern amenities combined with the traditional coastal charm created a truly magical experience.",
+    name: "علی رضایی",
+    role: "مشتری",
+    content: "عکس‌های خانوادگی که از ما گرفته شد فراتر از انتظارم بود. بچه‌ها در طول جلسه عکاسی کاملاً راحت بودند و عکاسان با صبر و حوصله با آن‌ها رفتار کردند. نتیجه کار عالی بود.",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop",
     rating: 5
   },
   {
     id: 3,
-    name: "Emma Johnson",
-    location: "London, UK",
-    avatar: "https://images.unsplash.com/photo-1569913486515-b74bf7751574?w=150&h=150&fit=crop&crop=faces",
-    content: "We spent a wonderful week at this beachfront paradise. The sunrise views from our terrace were worth the trip alone. Exceptionally clean and beautifully designed spaces.",
-    rating: 4
+    name: "مریم کریمی",
+    role: "مشتری",
+    content: "من عاشق سبک هنری عکس‌های آتلیه درسا هستم. برای عکس‌های تجاری شرکتمان از آن‌ها کمک گرفتیم و نتیجه فراتر از انتظار ما بود. قیمت‌ها هم بسیار منصفانه است.",
+    avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop",
+    rating: 5
   },
+  {
+    id: 4,
+    name: "نیما حسینی",
+    role: "مشتری",
+    content: "عکس‌های پرتره من در آتلیه درسا گرفته شد و من واقعاً از نتیجه آن راضی هستم. آن‌ها در به تصویر کشیدن شخصیت من در عکس‌ها بسیار موفق عمل کردند.",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop",
+    rating: 4
+  }
 ];
 
 export default function TestimonialsSection() {
-  const { t } = useLanguage();
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-  
-  const nextTestimonial = () => {
-    if (isAnimating) return;
-    
-    setIsAnimating(true);
-    setActiveIndex((prev) => (prev + 1) % testimonials.length);
-    
-    setTimeout(() => {
-      setIsAnimating(false);
-    }, 500);
-  };
-  
-  const prevTestimonial = () => {
-    if (isAnimating) return;
-    
-    setIsAnimating(true);
-    setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-    
-    setTimeout(() => {
-      setIsAnimating(false);
-    }, 500);
-  };
-  
-  useEffect(() => {
-    const interval = setInterval(nextTestimonial, 8000);
-    return () => clearInterval(interval);
-  }, []);
   
   return (
-    <section className="section bg-muted py-20">
+    <section className="section bg-card">
       <div className="container">
         <div className="text-center max-w-3xl mx-auto mb-12 animate-fade-in">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            {t.testimonials.title}
+          <span className="text-sm text-primary font-medium tracking-wider">
+            نظرات مشتریان
+          </span>
+          <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-4">
+            مشتریان ما چه می‌گویند
           </h2>
           <p className="text-muted-foreground">
-            {t.testimonials.description}
+            ما به کیفیت کار خود افتخار می‌کنیم و رضایت مشتریان اولویت ماست
           </p>
         </div>
         
         <div className="relative max-w-4xl mx-auto">
-          <div className="relative h-[400px] md:h-[300px]">
-            {testimonials.map((testimonial, index) => (
-              <div
-                key={testimonial.id}
-                className={cn(
-                  "absolute inset-0 glass-card p-8 md:p-10 transition-all duration-500",
-                  activeIndex === index 
-                    ? "opacity-100 translate-x-0 z-10"
-                    : index < activeIndex 
-                      ? "opacity-0 -translate-x-full z-0" 
-                      : "opacity-0 translate-x-full z-0"
-                )}
-              >
-                <div className="flex flex-col md:flex-row gap-6 h-full">
-                  <div className="flex flex-col items-center md:items-start">
-                    <div className="rounded-full overflow-hidden w-20 h-20 mb-4 border-2 border-primary">
-                      <img 
-                        src={testimonial.avatar} 
-                        alt={testimonial.name} 
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="flex mb-2">
+          {/* Desktop Testimonials Carousel */}
+          <div className="hidden md:block">
+            <div className="grid grid-cols-1">
+              <div className="glass-card p-8 md:p-10 shadow-lg animate-fade-in">
+                <div className="flex items-center mb-6">
+                  <div className="ml-4">
+                    <img 
+                      src={testimonials[activeIndex].avatar} 
+                      alt={testimonials[activeIndex].name}
+                      className="w-16 h-16 rounded-full object-cover border-2 border-primary" 
+                    />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-lg">{testimonials[activeIndex].name}</h4>
+                    <p className="text-muted-foreground text-sm">{testimonials[activeIndex].role}</p>
+                    <div className="flex items-center mt-1">
                       {[...Array(5)].map((_, i) => (
                         <Star 
                           key={i} 
-                          className={`h-4 w-4 ${i < testimonial.rating ? "fill-primary text-primary" : "text-muted-foreground"}`} 
+                          className={cn(
+                            "w-4 h-4", 
+                            i < testimonials[activeIndex].rating 
+                              ? "text-amber-500 fill-amber-500" 
+                              : "text-muted"
+                          )} 
                         />
                       ))}
                     </div>
-                    <h4 className="text-lg font-semibold text-center md:text-left">{testimonial.name}</h4>
-                    <p className="text-sm text-muted-foreground text-center md:text-left">{testimonial.location}</p>
-                  </div>
-                  
-                  <div className="flex-1 flex items-center">
-                    <blockquote className="italic text-muted-foreground">
-                      "{testimonial.content}"
-                    </blockquote>
                   </div>
                 </div>
+                <blockquote className="text-lg mb-6">
+                  "{testimonials[activeIndex].content}"
+                </blockquote>
               </div>
-            ))}
-          </div>
-          
-          <div className="flex justify-between mt-8">
-            <button
-              onClick={prevTestimonial}
-              className="p-2 rounded-full bg-card hover:bg-muted border border-border transition-colors"
-              disabled={isAnimating}
-            >
-              <ChevronLeft className="h-5 w-5" />
-              <span className="sr-only">Previous testimonial</span>
-            </button>
+            </div>
             
-            <div className="flex space-x-2">
-              {testimonials.map((_, index) => (
+            {/* Testimonial Dots */}
+            <div className="flex justify-center mt-6 space-x-2">
+              {testimonials.map((_, i) => (
                 <button
-                  key={index}
-                  onClick={() => {
-                    if (isAnimating) return;
-                    setIsAnimating(true);
-                    setActiveIndex(index);
-                    setTimeout(() => setIsAnimating(false), 500);
-                  }}
-                  className={`w-3 h-3 rounded-full transition-all ${
-                    activeIndex === index 
-                      ? "bg-primary w-6" 
-                      : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
-                  }`}
-                  aria-label={`Go to testimonial ${index + 1}`}
+                  key={i}
+                  onClick={() => setActiveIndex(i)}
+                  className={cn(
+                    "w-2.5 h-2.5 rounded-full transition-all duration-300",
+                    activeIndex === i 
+                      ? "bg-primary scale-125" 
+                      : "bg-muted hover:bg-primary/50"
+                  )}
+                  aria-label={`View testimonial ${i + 1}`}
                 />
               ))}
             </div>
-            
-            <button
-              onClick={nextTestimonial}
-              className="p-2 rounded-full bg-card hover:bg-muted border border-border transition-colors"
-              disabled={isAnimating}
-            >
-              <ChevronRight className="h-5 w-5" />
-              <span className="sr-only">Next testimonial</span>
-            </button>
+          </div>
+          
+          {/* Mobile Testimonials Cards */}
+          <div className="md:hidden space-y-6">
+            {testimonials.map((testimonial) => (
+              <div 
+                key={testimonial.id} 
+                className="glass-card p-6 shadow-lg animate-fade-in"
+              >
+                <div className="flex items-center mb-4">
+                  <div className="ml-3">
+                    <img 
+                      src={testimonial.avatar} 
+                      alt={testimonial.name}
+                      className="w-12 h-12 rounded-full object-cover border-2 border-primary" 
+                    />
+                  </div>
+                  <div>
+                    <h4 className="font-bold">{testimonial.name}</h4>
+                    <p className="text-muted-foreground text-sm">{testimonial.role}</p>
+                    <div className="flex items-center mt-1">
+                      {[...Array(5)].map((_, i) => (
+                        <Star 
+                          key={i} 
+                          className={cn(
+                            "w-3 h-3", 
+                            i < testimonial.rating 
+                              ? "text-amber-500 fill-amber-500" 
+                              : "text-muted"
+                          )} 
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <blockquote className="text-sm">
+                  "{testimonial.content}"
+                </blockquote>
+              </div>
+            ))}
           </div>
         </div>
       </div>
