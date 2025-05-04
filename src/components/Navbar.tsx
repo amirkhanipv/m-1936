@@ -20,7 +20,10 @@ export default function Navbar() {
   return (
     <header className={cn("fixed top-0 left-0 right-0 z-50 transition-all duration-300", 
       scrolled ? "bg-white/80 dark:bg-card/80 backdrop-blur-lg py-3 shadow-md" : "bg-transparent py-5")}>
-      <nav className="container flex justify-end items-center">
+      <nav className="container flex justify-between items-center">
+        <div className="text-xl font-bold">
+          آتلیه عکاسی درسا
+        </div>
         <div className="flex items-center space-x-2">
           <ThemeToggle />
         </div>
