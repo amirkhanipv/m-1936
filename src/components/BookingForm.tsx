@@ -17,25 +17,29 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function BookingForm() {
-  const { t } = useLanguage();
-  const [startDate, setStartDate] = useState<Date>();
-  const [endDate, setEndDate] = useState<Date>();
-  const [adults, setAdults] = useState("2");
-  const [children, setChildren] = useState("0");
+  const [date, setDate] = useState<Date>();
+  const [time, setTime] = useState("16:00");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [sessionType, setSessionType] = useState("آتلیه داخلی");
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // In a real app, this would send the booking data to a server
-    console.log("Booking submitted:", { startDate, endDate, adults, children });
+    console.log("Booking submitted:", { date, time, name, phone, sessionType });
     setSubmitted(true);
     
     // Reset form after 3 seconds
     setTimeout(() => {
       setSubmitted(false);
+      setDate(undefined);
+      setTime("16:00");
+      setName("");
+      setPhone("");
+      setSessionType("آتلیه داخلی");
     }, 3000);
   };
 
@@ -44,126 +48,122 @@ export default function BookingForm() {
       onSubmit={handleSubmit} 
       className="glass-card p-6 space-y-6 animate-fade-in [animation-delay:200ms]"
     >
-      <h3 className="text-2xl font-bold text-center mb-6">{t.bookingForm.title}</h3>
+      <h3 className="text-2xl font-bold text-center mb-6">رزرو نوبت</h3>
       
       <div className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Check-in Date */}
-          <div className="space-y-2">
-            <label htmlFor="check-in" className="block text-sm font-medium">
-              {t.bookingForm.checkIn}
-            </label>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  id="check-in"
-                  variant="outline"
-                  className={cn(
-                    "w-full justify-start text-left font-normal",
-                    !startDate && "text-muted-foreground"
-                  )}
-                >
-                  <CalendarIcon className="mr-2 h-4 w-4" />
-                  {startDate ? format(startDate, "PPP") : <span>{t.bookingForm.selectDate}</span>}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="start">
-                <Calendar
-                  mode="single"
-                  selected={startDate}
-                  onSelect={setStartDate}
-                  initialFocus
-                  disabled={(date) => date < new Date()}
-                  className="pointer-events-auto"
-                />
-              </PopoverContent>
-            </Popover>
-          </div>
-          
-          {/* Check-out Date */}
-          <div className="space-y-2">
-            <label htmlFor="check-out" className="block text-sm font-medium">
-              {t.bookingForm.checkOut}
-            </label>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  id="check-out"
-                  variant="outline"
-                  className={cn(
-                    "w-full justify-start text-left font-normal",
-                    !endDate && "text-muted-foreground"
-                  )}
-                >
-                  <CalendarIcon className="mr-2 h-4 w-4" />
-                  {endDate ? format(endDate, "PPP") : <span>{t.bookingForm.selectDate}</span>}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="start">
-                <Calendar
-                  mode="single"
-                  selected={endDate}
-                  onSelect={setEndDate}
-                  initialFocus
-                  disabled={(date) => date < (startDate || new Date())}
-                  className="pointer-events-auto"
-                />
-              </PopoverContent>
-            </Popover>
-          </div>
+        {/* تاریخ */}
+        <div className="space-y-2">
+          <label htmlFor="date" className="block text-sm font-medium">
+            تاریخ
+          </label>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                id="date"
+                variant="outline"
+                className={cn(
+                  "w-full justify-start text-right font-normal",
+                  !date && "text-muted-foreground"
+                )}
+              >
+                <CalendarIcon className="ml-2 h-4 w-4" />
+                {date ? format(date, "yyyy/MM/dd") : <span>تاریخ را انتخاب کنید</span>}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={setDate}
+                initialFocus
+                disabled={(date) => date < new Date()}
+                className="pointer-events-auto"
+              />
+            </PopoverContent>
+          </Popover>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Adults */}
-          <div className="space-y-2">
-            <label htmlFor="adults" className="block text-sm font-medium">
-              {t.bookingForm.adults}
-            </label>
-            <Select value={adults} onValueChange={setAdults}>
-              <SelectTrigger id="adults" className="w-full">
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent>
-                {[1, 2, 3, 4, 5, 6].map((num) => (
-                  <SelectItem key={num} value={num.toString()}>
-                    {num} {num === 1 ? t.bookingForm.adult : t.bookingForm.adults}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          
-          {/* Children */}
-          <div className="space-y-2">
-            <label htmlFor="children" className="block text-sm font-medium">
-              {t.bookingForm.children}
-            </label>
-            <Select value={children} onValueChange={setChildren}>
-              <SelectTrigger id="children" className="w-full">
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent>
-                {[0, 1, 2, 3, 4].map((num) => (
-                  <SelectItem key={num} value={num.toString()}>
-                    {num} {num === 1 ? t.bookingForm.child : t.bookingForm.children}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+
+        {/* زمان */}
+        <div className="space-y-2">
+          <label htmlFor="time" className="block text-sm font-medium">
+            ساعت
+          </label>
+          <Select value={time} onValueChange={setTime}>
+            <SelectTrigger id="time" className="w-full text-right">
+              <SelectValue placeholder="انتخاب ساعت" />
+            </SelectTrigger>
+            <SelectContent>
+              {["10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"].map((t) => (
+                <SelectItem key={t} value={t}>
+                  {t}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* نوع جلسه */}
+        <div className="space-y-2">
+          <label htmlFor="session-type" className="block text-sm font-medium">
+            نوع جلسه عکاسی
+          </label>
+          <Select value={sessionType} onValueChange={setSessionType}>
+            <SelectTrigger id="session-type" className="w-full text-right">
+              <SelectValue placeholder="انتخاب نوع جلسه" />
+            </SelectTrigger>
+            <SelectContent>
+              {["آتلیه داخلی", "عکاسی فضای باز", "عکاسی مراسم", "عکاسی محصول", "عکاسی خانوادگی"].map((type) => (
+                <SelectItem key={type} value={type}>
+                  {type}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* نام */}
+        <div className="space-y-2">
+          <label htmlFor="name" className="block text-sm font-medium">
+            نام و نام خانوادگی
+          </label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full px-3 py-2 border border-input rounded-md text-right"
+            placeholder="نام خود را وارد کنید"
+            required
+          />
+        </div>
+
+        {/* شماره تماس */}
+        <div className="space-y-2">
+          <label htmlFor="phone" className="block text-sm font-medium">
+            شماره تماس
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            className="w-full px-3 py-2 border border-input rounded-md text-right"
+            placeholder="شماره تماس خود را وارد کنید"
+            required
+          />
         </div>
       </div>
       
       <Button type="submit" className="w-full btn-primary relative">
         {submitted ? (
           <>
-            <Check className="mr-2 h-4 w-4" />
-            {t.bookingForm.bookingConfirmed}
+            <Check className="ml-2 h-4 w-4" />
+            درخواست شما ثبت شد
           </>
         ) : (
           <>
-            <Users className="mr-2 h-4 w-4" />
-            {t.bookingForm.checkAvailability}
+            <Users className="ml-2 h-4 w-4" />
+            ثبت درخواست رزرو
           </>
         )}
       </Button>

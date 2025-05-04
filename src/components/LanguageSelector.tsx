@@ -17,6 +17,7 @@ type Language = {
 };
 
 const languages: Language[] = [
+  { code: "fa", name: "فارسی", flag: "🇮🇷" },
   { code: "en", name: "English", flag: "🇬🇧" },
   { code: "it", name: "Italiano", flag: "🇮🇹" },
 ];
@@ -28,6 +29,9 @@ export default function LanguageSelector() {
   // This effect is to ensure hydration doesn't cause issues
   useEffect(() => {
     setMounted(true);
+    if (language !== "fa") {
+      setLanguage("fa");
+    }
   }, []);
 
   const handleLanguageChange = (value: string) => {
@@ -47,15 +51,15 @@ export default function LanguageSelector() {
         >
           <div className="flex items-center space-x-2">
             <Globe className="h-4 w-4" />
-            <SelectValue placeholder="Select language" />
+            <SelectValue placeholder="انتخاب زبان" />
           </div>
         </SelectTrigger>
         <SelectContent align="start" className="w-[160px]">
-          {languages.map((language) => (
-            <SelectItem key={language.code} value={language.code} className="cursor-pointer">
+          {languages.map((lang) => (
+            <SelectItem key={lang.code} value={lang.code} className="cursor-pointer">
               <div className="flex items-center space-x-2">
-                <span>{language.flag}</span>
-                <span>{language.name}</span>
+                <span>{lang.flag}</span>
+                <span>{lang.name}</span>
               </div>
             </SelectItem>
           ))}
