@@ -23,11 +23,11 @@ export default function HeroSection() {
   
   return (
     <section className="relative h-screen overflow-hidden">
-      {/* Background image with parallax */}
+      {/* Background image with parallax - updated to use uploaded image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1610452220299-5edf90bc3574?q=80&w=1920&auto=format&fit=crop')",
+          backgroundImage: "url('/lovable-uploads/1c3546bf-2384-4f43-b051-76afcc977250.png')",
           transform: `translateY(${backgroundY}px)`,
           backgroundPosition: `center ${50 + scrollY * 0.05}%`
         }}

@@ -6,80 +6,56 @@ import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-// Sample gallery images
+// آپدیت تصاویر گالری با عکس‌های جدید
 const galleryImages = [
   {
     id: 1,
-    src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop",
-    alt: "Beachfront view",
-    category: "exterior"
+    src: "/lovable-uploads/05e034de-d613-49f3-bde4-d00c47432730.png",
+    alt: "عکس پرتره",
+    category: "portrait"
   },
   {
     id: 2,
-    src: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&h=600&fit=crop",
-    alt: "Luxury suite interior",
-    category: "rooms"
+    src: "/lovable-uploads/9a076c92-8637-4397-a23d-d6e6c14b4af7.png",
+    alt: "عکس مدلینگ - دیوار سفید",
+    category: "modeling"
   },
   {
     id: 3,
-    src: "https://images.unsplash.com/photo-1584132905271-512c958d674a?w=800&h=600&fit=crop",
-    alt: "Swimming pool",
-    category: "amenities"
+    src: "/lovable-uploads/10716909-b596-4729-8b06-a40587b4bf9e.png",
+    alt: "عکس مدلینگ - استایل خاص",
+    category: "modeling"
   },
   {
     id: 4,
-    src: "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=800&h=600&fit=crop",
-    alt: "Premium apartment",
-    category: "rooms"
+    src: "/lovable-uploads/1c3546bf-2384-4f43-b051-76afcc977250.png",
+    alt: "عکس فشن",
+    category: "fashion"
   },
   {
     id: 5,
-    src: "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=800&h=600&fit=crop",
-    alt: "Beach sunset",
-    category: "exterior"
+    src: "/lovable-uploads/d85caa27-2450-47db-a1d6-33bdecce8572.png",
+    alt: "عکس پرتره - استایل خاص",
+    category: "portrait"
   },
   {
     id: 6,
-    src: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800&h=600&fit=crop",
-    alt: "Dining area",
-    category: "amenities"
+    src: "/lovable-uploads/91c752b5-081f-4202-b929-c7033183487c.png",
+    alt: "عکس مدلینگ - صندلی",
+    category: "modeling"
   },
   {
     id: 7,
-    src: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=600&fit=crop",
-    alt: "Bathroom",
-    category: "rooms"
+    src: "/lovable-uploads/362d2dec-ab2b-4522-bdf5-8838b76019d2.png",
+    alt: "عکس استایل شخصی",
+    category: "fashion"
   },
   {
     id: 8,
-    src: "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800&h=600&fit=crop",
-    alt: "Beach pathway",
-    category: "exterior"
-  },
-  {
-    id: 9,
-    src: "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=800&h=600&fit=crop",
-    alt: "Restaurant",
-    category: "amenities"
-  },
-  {
-    id: 10,
-    src: "https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?w=800&h=600&fit=crop",
-    alt: "Bedroom",
-    category: "rooms"
-  },
-  {
-    id: 11,
-    src: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&h=600&fit=crop",
-    alt: "Beach umbrellas",
-    category: "exterior"
-  },
-  {
-    id: 12,
-    src: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&h=600&fit=crop",
-    alt: "Spa",
-    category: "amenities"
-  },
+    src: "/lovable-uploads/947c92d8-1e94-495e-b89b-20c881d88270.png",
+    alt: "عکس مدلینگ - دیوار طوسی",
+    category: "modeling"
+  }
 ];
 
 export default function Gallery() {
@@ -163,11 +139,11 @@ export default function Gallery() {
           </div>
         </section>
         
-        {/* Gallery Filters */}
+        {/* Gallery Filters - دسته‌بندی‌های جدید */}
         <section className="py-8">
           <div className="container">
             <div className="flex flex-wrap justify-center gap-2 mb-8 animate-fade-in">
-              {["all", "exterior", "rooms", "amenities"].map((category) => (
+              {["all", "portrait", "modeling", "fashion"].map((category) => (
                 <button
                   key={category}
                   onClick={() => filterGallery(category)}
@@ -179,12 +155,12 @@ export default function Gallery() {
                   )}
                 >
                   {category === "all" 
-                    ? t.gallery.filters.all 
-                    : category === "exterior" 
-                      ? t.gallery.filters.exterior 
-                      : category === "rooms" 
-                        ? t.gallery.filters.rooms 
-                        : t.gallery.filters.amenities}
+                    ? "همه" 
+                    : category === "portrait" 
+                      ? "پرتره" 
+                      : category === "modeling" 
+                        ? "مدلینگ" 
+                        : "فشن"}
                 </button>
               ))}
             </div>
@@ -220,14 +196,14 @@ export default function Gallery() {
               onClick={() => setSelectedImage(null)}
             >
               <X className="h-6 w-6" />
-              <span className="sr-only">Close</span>
+              <span className="sr-only">بستن</span>
             </button>
             
             <button 
               className="absolute left-4 top-1/2 -translate-y-1/2 text-white p-4 rounded-full hover:bg-white/10 transition-colors"
               onClick={() => navigateGallery("prev")}
             >
-              <span className="sr-only">Previous</span>
+              <span className="sr-only">قبلی</span>
               <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
@@ -247,7 +223,7 @@ export default function Gallery() {
               className="absolute right-4 top-1/2 -translate-y-1/2 text-white p-4 rounded-full hover:bg-white/10 transition-colors"
               onClick={() => navigateGallery("next")}
             >
-              <span className="sr-only">Next</span>
+              <span className="sr-only">بعدی</span>
               <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>

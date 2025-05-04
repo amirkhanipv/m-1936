@@ -9,25 +9,25 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Camera, Image, Calendar, Users, Heart } from "lucide-react";
 
-// نمونه کارهای آتلیه
+// نمونه کارهای آتلیه با تصاویر جدید
 const portfolioItems = [
   {
     id: "1",
     title: "عکاسی پرتره",
     description: "ثبت لحظات خاص شما با بهترین کیفیت",
-    image: "https://images.unsplash.com/photo-1508833726718-9f12a8191968?w=800&h=600&fit=crop"
+    image: "/lovable-uploads/05e034de-d613-49f3-bde4-d00c47432730.png"
   },
   {
     id: "2",
-    title: "عکاسی خانوادگی",
-    description: "ثبت خاطرات خانوادگی در لوکیشن‌های متنوع",
-    image: "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800&h=600&fit=crop"
+    title: "عکاسی مدلینگ",
+    description: "تصاویر حرفه‌ای برای پورتفولیوی شخصی",
+    image: "/lovable-uploads/947c92d8-1e94-495e-b89b-20c881d88270.png"
   },
   {
     id: "3",
-    title: "عکاسی مراسم",
-    description: "ثبت لحظات ناب جشن‌ها و مراسم‌های شما",
-    image: "https://images.unsplash.com/photo-1519741347686-c1e0aadf4611?w=800&h=600&fit=crop"
+    title: "عکاسی فشن",
+    description: "ثبت استایل منحصر به فرد شما",
+    image: "/lovable-uploads/9a076c92-8637-4397-a23d-d6e6c14b4af7.png"
   }
 ];
 
@@ -39,7 +39,7 @@ const pricingPackages = [
     description: "عکاسی در فضای داخلی آتلیه با امکانات کامل",
     price: "از ۸۰۰,۰۰۰ تومان",
     features: ["تحویل ۱۰ عکس ویرایش شده", "امکان تعویض لباس", "چاپ یک عکس رایگان", "۴۵ دقیقه زمان عکسبرداری"],
-    image: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=800&h=600&fit=crop"
+    image: "/lovable-uploads/362d2dec-ab2b-4522-bdf5-8838b76019d2.png"
   },
   {
     id: "2",
@@ -47,7 +47,7 @@ const pricingPackages = [
     description: "عکاسی در لوکیشن‌های طبیعی و فضای باز",
     price: "از ۱,۲۰۰,۰۰۰ تومان",
     features: ["تحویل ۱۵ عکس ویرایش شده", "انتخاب لوکیشن", "امکان تعویض لباس", "۶۰ دقیقه زمان عکسبرداری"],
-    image: "https://images.unsplash.com/photo-1545232979-8bf68ee9b1af?w=800&h=600&fit=crop"
+    image: "/lovable-uploads/d85caa27-2450-47db-a1d6-33bdecce8572.png"
   },
   {
     id: "3",
@@ -55,7 +55,7 @@ const pricingPackages = [
     description: "عکاسی از مراسم‌ها، جشن‌ها و رویدادهای خاص",
     price: "از ۲,۰۰۰,۰۰۰ تومان",
     features: ["تحویل بیش از ۵۰ عکس", "فیلمبرداری HD", "آلبوم دیجیتال", "تا ۳ ساعت زمان عکسبرداری"],
-    image: "https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=800&h=600&fit=crop"
+    image: "/lovable-uploads/10716909-b596-4729-8b06-a40587b4bf9e.png"
   }
 ];
 
@@ -70,12 +70,12 @@ export default function Index() {
       <Navbar />
       
       <main className="flex-1">
-        {/* قسمت اصلی صفحه */}
+        {/* قسمت اصلی صفحه - بکگراند عوض شده */}
         <section className="relative h-screen flex items-center overflow-hidden">
           <div 
             className="absolute inset-0 bg-cover bg-center"
             style={{
-              backgroundImage: "url('https://images.unsplash.com/photo-1455894127589-22f75500213a?q=80&w=1920&auto=format&fit=crop')",
+              backgroundImage: "url('/lovable-uploads/91c752b5-081f-4202-b929-c7033183487c.png')",
               backgroundPosition: "center 50%"
             }}
           />
@@ -145,21 +145,21 @@ export default function Index() {
               <div className="relative animate-fade-in [animation-delay:300ms]">
                 <div className="aspect-[4/3] rounded-2xl overflow-hidden">
                   <img 
-                    src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=800&h=600&fit=crop"
+                    src="/lovable-uploads/9a076c92-8637-4397-a23d-d6e6c14b4af7.png"
                     alt="ثبت خاطرات زندگی" 
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="absolute -bottom-6 -left-6 w-2/3 rounded-2xl overflow-hidden shadow-xl">
                   <img 
-                    src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400&h=300&fit=crop"
-                    alt="عکس خانوادگی" 
+                    src="/lovable-uploads/05e034de-d613-49f3-bde4-d00c47432730.png"
+                    alt="عکس پرتره" 
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="absolute -top-6 -right-6 w-1/2 rounded-2xl overflow-hidden shadow-xl">
                   <img 
-                    src="https://images.unsplash.com/photo-1519689680058-324335c77eba?w=400&h=300&fit=crop"
+                    src="/lovable-uploads/d85caa27-2450-47db-a1d6-33bdecce8572.png"
                     alt="عکس هنری" 
                     className="w-full h-full object-cover"
                   />

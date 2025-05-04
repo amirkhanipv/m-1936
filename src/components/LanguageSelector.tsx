@@ -29,9 +29,6 @@ export default function LanguageSelector() {
   // This effect is to ensure hydration doesn't cause issues
   useEffect(() => {
     setMounted(true);
-    if (language !== "fa") {
-      setLanguage("fa");
-    }
   }, []);
 
   const handleLanguageChange = (value: string) => {
@@ -47,7 +44,7 @@ export default function LanguageSelector() {
       <Select value={language} onValueChange={handleLanguageChange}>
         <SelectTrigger 
           className="w-[80px] h-10 border-none bg-transparent focus:ring-0" 
-          aria-label="Select Language"
+          aria-label="انتخاب زبان"
         >
           <div className="flex items-center space-x-2">
             <Globe className="h-4 w-4" />
